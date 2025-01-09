@@ -8,6 +8,17 @@ uv venv
 uv sync --all-extras --dev
 ```
 
+## Usage
+
+Run via
+```
+flask run
+# or
+granian run
+# or
+docker run -p 5000:5000 ghcr.io/taranis-ai/taranis-summarize-bot:latest
+```
+
 ## License
 EUROPEAN UNION PUBLIC LICENCE v. 1.2
 
