@@ -1,3 +1,3 @@
-from summarize_bot.__init__ import main
+from summarize_bot.__init__ import create_app
 
-main()
+create_app()
