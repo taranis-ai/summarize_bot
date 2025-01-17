@@ -17,9 +17,15 @@ class SummarizeText(MethodView):
         return jsonify({"summary": summary})
 
 
+class HealthCheck(MethodView):
+    def get(self):
+        return jsonify({"status": "ok"})
+
+
 def init(app: Flask, summarizer: Summarize):
     app.url_map.strict_slashes = False
 
     summarize_bp = Blueprint("predict", __name__)
     summarize_bp.add_url_rule("/", view_func=SummarizeText.as_view("summarize", summarizer=summarizer))
+    summarize_bp.add_url_rule("/health", view_func=HealthCheck.as_view("health"))
     app.register_blueprint(summarize_bp)

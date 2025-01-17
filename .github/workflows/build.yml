@@ -66,5 +66,5 @@ jobs:
             ghcr.io/${{ env.GHCR_OWNER }}/taranis-summarize-bot:${{ github.ref_name }}
           build-args: |
             BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
-          cache-from: type=registry,ref=ghcr.io/${{ env.GHCR_OWNER }}/taranis-summarize-bot:latest
-          cache-to: type=registry,ref=ghcr.io/${{ env.GHCR_OWNER }}/taranis-summarize-bot:latest,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ env.GHCR_OWNER }}/taranis-summarize-bot-cache:latest
+          cache-to: type=registry,ref=ghcr.io/${{ env.GHCR_OWNER }}/taranis-summarize-bot-cache:latest,mode=max
