@@ -19,4 +19,4 @@ def init(app: Flask):
 
 
 if __name__ == "__main__":
-    create_app()
+    create_app().run()
