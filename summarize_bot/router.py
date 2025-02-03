@@ -1,19 +1,19 @@
 from flask import Flask, Blueprint, jsonify, request
 from flask.views import MethodView
 
-from summarize_bot.summarize import Summarize
+from summarize_bot.predictor_factory import PredictorFactory
+from summarize_bot.predictor import Predictor
 
 
 class SummarizeText(MethodView):
-    def __init__(self, summarizer: Summarize) -> None:
+    def __init__(self, processor: Predictor) -> None:
         super().__init__()
-        self.summarizer = summarizer
+        self.processor = processor
 
     def post(self):
         data = request.get_json()
         text = data.get("text", "")
-        language = data.get("language", "en")
-        summary = self.summarizer.predict(text, language)
+        summary = self.processor.predict(text)
         return jsonify({"summary": summary})
 
 
@@ -22,10 +22,21 @@ class HealthCheck(MethodView):
         return jsonify({"status": "ok"})
 
 
-def init(app: Flask, summarizer: Summarize):
+class ModelInfo(MethodView):
+    def __init__(self, processor: Predictor):
+        super().__init__()
+        self.processor = processor
+
+    def get(self):
+        return jsonify(self.processor.modelinfo)
+
+
+def init(app: Flask):
+    summarizer = PredictorFactory()
     app.url_map.strict_slashes = False
 
     summarize_bp = Blueprint("predict", __name__)
-    summarize_bp.add_url_rule("/", view_func=SummarizeText.as_view("summarize", summarizer=summarizer))
+    summarize_bp.add_url_rule("/", view_func=SummarizeText.as_view("summarize", processor=summarizer))
     summarize_bp.add_url_rule("/health", view_func=HealthCheck.as_view("health"))
+    summarize_bp.add_url_rule("/modelinfo", view_func=ModelInfo.as_view("modelinfo", processor=summarizer))
     app.register_blueprint(summarize_bp)

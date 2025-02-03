@@ -1,6 +1,5 @@
 from flask import Flask
 from summarize_bot import router
-from summarize_bot.summarize import Summarize
 
 
 def create_app():
@@ -14,8 +13,7 @@ def create_app():
 
 
 def init(app: Flask):
-    summarizer = Summarize()
-    router.init(app, summarizer)
+    router.init(app)
 
 
 if __name__ == "__main__":

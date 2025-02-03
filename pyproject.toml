@@ -19,7 +19,9 @@ dependencies = [
     "python-dotenv",
     "granian",
     "transformers",
-    "torch"
+    "torch",
+    "python-dotenv",
+    "sentencepiece"
 ]
 dynamic = ["version"]
 
