@@ -3,6 +3,7 @@ from flask.views import MethodView
 
 from summarize_bot.predictor_factory import PredictorFactory
 from summarize_bot.predictor import Predictor
+from summarize_bot.decorators import api_key_required
 
 
 class SummarizeText(MethodView):
@@ -10,6 +11,7 @@ class SummarizeText(MethodView):
         super().__init__()
         self.processor = processor
 
+    @api_key_required
     def post(self):
         data = request.get_json()
         text = data.get("text", "")
