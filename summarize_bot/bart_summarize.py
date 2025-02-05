@@ -9,7 +9,7 @@ class BartSummarize(Predictor):
 
     def __init__(self):
         
-        self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn", truncation=True)
+        self.summarizer = pipeline("summarization", model=self.model_name, truncation=True)
 
     def predict(self, text: str) -> str:
         if not text:
