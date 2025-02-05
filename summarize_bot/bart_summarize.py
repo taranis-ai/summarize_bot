@@ -5,6 +5,7 @@ from summarize_bot.config import Config
 
 class BartSummarize(Predictor):
     def __init__(self):
+        self.model_name = "facebook/bart-large-cnn"
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn", truncation=True)
 
     def predict(self, text: str) -> str:
