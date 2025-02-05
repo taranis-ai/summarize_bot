@@ -4,8 +4,10 @@ from summarize_bot.config import Config
 
 
 class PegasusSummarize(Predictor):
+
+    model_name = "google/pegasus-xsum"
+
     def __init__(self):
-        self.model_name = "google/pegasus-xsum"
         self.tokenizer = PegasusTokenizer.from_pretrained("google/pegasus-xsum")
         self.summarizer = PegasusForConditionalGeneration.from_pretrained("google/pegasus-xsum")
 
