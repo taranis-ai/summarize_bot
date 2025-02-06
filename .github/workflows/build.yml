@@ -46,7 +46,7 @@ jobs:
     if: github.event_name == 'push'
     strategy:
       matrix:
-        model: [bart, pegasus]
+        model: [bart, pegasus, t5]
         os: [ubuntu-latest, ubuntu-24.04-arm]
     steps:
       - name: Set up Docker Buildx
@@ -71,7 +71,7 @@ jobs:
           tags: |
             type=ref,event=tag
             type=raw,value=${{ matrix.model }}
-            type=raw,value=latest,enable=${{ matrix.model == 'bart' }}
+            type=raw,value=latest,enable=${{ matrix.model == 't5' }}
 
       - name: Build and push container for ${{ matrix.model }}
         uses: docker/build-push-action@v6

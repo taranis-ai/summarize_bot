@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     GIT_INFO: dict[str, str] | None = None
     CACHE_TYPE: str = "SimpleCache"
     CACHE_DEFAULT_TIMEOUT: int = 300
-    MODEL: Literal["bart", "pegasus"] = "bart"
+    MODEL: Literal["bart", "pegasus", "t5"] = "t5"
 
     max_length: int = 280
     min_length: int = 80

@@ -18,5 +18,9 @@ class PredictorFactory:
             from summarize_bot.pegasus_summarize import PegasusSummarize
 
             return PegasusSummarize(*args, **kwargs)
+        elif Config.MODEL == "t5":
+            from summarize_bot.t5_summarize import T5Summarize
+
+            return T5Summarize(*args, **kwargs)
         else:
             raise ValueError(f"Unsupported NER model: {Config.MODEL}")
