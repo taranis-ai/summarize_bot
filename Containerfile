@@ -3,18 +3,18 @@ FROM python:3.12-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 WORKDIR /app/
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
+# install common packages
+RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
     build-essential \
     python3-dev \
     git
 
 COPY . /app/
 
-ENV UV_COMPILE_BYTECODE=1
-
 RUN uv venv && \
     export PATH="/app/.venv/bin:$PATH" && \
-    uv sync --frozen
+    uv sync --frozen && \
+    python -m compileall /app/
 
 FROM python:3.12-slim
 
