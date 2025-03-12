@@ -18,7 +18,7 @@ permissions:
 jobs:
   test:
     name: Run Python Tests
-    uses: llinauer/github-actions/.github/workflows/python-uv.yml@master 
+    uses: llinauer/github-actions/.github/workflows/python-uv.yml@deep_clone 
 
   build_container:
     name: Build and Push Containers
