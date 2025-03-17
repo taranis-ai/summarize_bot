@@ -20,11 +20,11 @@ jobs:
     name: Run Python Tests
     uses: taranis-ai/github-actions/.github/workflows/python-uv.yml@master
 
-  build_container:
-
+  debug:
     name: Setup tmate session
     uses: mxschmitt/action-tmate@v3
 
+  build_container:
     name: Build and Push Containers
     strategy:
       fail-fast: false
