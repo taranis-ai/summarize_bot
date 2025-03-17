@@ -31,7 +31,7 @@ jobs:
       matrix:
         model: [bart, pegasus, t5]
         os: [ubuntu-latest, ubuntu-24.04-arm]
-    uses: taranis-ai/github-actions/.github/workflows/build-multiarch-bot-container.yml@master
+    uses: llinauer/github-actions/.github/workflows/build-multiarch-bot-container.yml@debug_build_container
     with:
       ghcr_image: ghcr.io/taranis-ai/taranis-summarize-bot
       model: ${{ matrix.model }}
