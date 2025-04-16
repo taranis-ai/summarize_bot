@@ -5,6 +5,7 @@ from summarize_bot.predictor_factory import PredictorFactory
 from summarize_bot.predictor import Predictor
 from summarize_bot.decorators import api_key_required
 from summarize_bot.decorators import debug_request
+from summarize_bot.config import Config
 
 
 class SummarizeText(MethodView):
@@ -12,7 +13,7 @@ class SummarizeText(MethodView):
         super().__init__()
         self.processor = processor
 
-    @debug_request
+    @debug_request(Config.DEBUG)
     @api_key_required
     def post(self):
         data = request.get_json()
@@ -22,7 +23,7 @@ class SummarizeText(MethodView):
 
 
 class HealthCheck(MethodView):
-    @debug_request
+    @debug_request(Config.DEBUG)
     def get(self):
         return jsonify({"status": "ok"})
 
@@ -31,7 +32,7 @@ class ModelInfo(MethodView):
     def __init__(self, processor: Predictor):
         super().__init__()
         self.processor = processor
-    @debug_request
+    @debug_request(Config.DEBUG)
     def get(self):
         return jsonify(self.processor.modelinfo)
 
