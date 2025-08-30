@@ -4,8 +4,6 @@ from quart.views import MethodView
 from summarize_bot.predictor_factory import PredictorFactory
 from summarize_bot.predictor import Predictor
 from summarize_bot.decorators import api_key_required
-from summarize_bot.decorators import debug_request
-from summarize_bot.config import Config
 
 
 class SummarizeText(MethodView):
@@ -13,17 +11,15 @@ class SummarizeText(MethodView):
         super().__init__()
         self.processor = processor
 
-    @debug_request(Config.DEBUG)
     @api_key_required
     async def post(self):
         data = await request.get_json()
         text = data.get("text", "")
-        summary = self.processor.predict(text)
+        summary = await self.processor.predict(text)
         return jsonify({"summary": summary})
 
 
 class HealthCheck(MethodView):
-    @debug_request(Config.DEBUG)
     async def get(self):
         return jsonify({"status": "ok"})
 
@@ -33,7 +29,6 @@ class ModelInfo(MethodView):
         super().__init__()
         self.processor = processor
 
-    @debug_request(Config.DEBUG)
     async def get(self):
         return jsonify(await self.processor.modelinfo)
 

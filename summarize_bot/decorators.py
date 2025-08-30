@@ -5,24 +5,6 @@ from summarize_bot.config import Config
 from summarize_bot.log import logger
 
 
-def debug_request(debug=False):
-    def decorator(func):
-        @wraps(func)
-        async def wrapper(*args, **kwargs):
-            if not debug or request is None:
-                return await func(*args, **kwargs)
-            log_str = f"Method: {request.method}, Endpoint: {request.path}, "
-            payload = await request.get_json(silent=True)
-            if payload is not None:
-                log_str += f"Payload: {payload}"
-            logger.debug(log_str)
-            return await func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
-
-
 def api_key_required(fn):
     @wraps(fn)
     async def wrapper(*args, **kwargs):
