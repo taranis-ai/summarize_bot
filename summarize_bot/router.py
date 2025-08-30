@@ -1,5 +1,5 @@
-from flask import Flask, Blueprint, jsonify, request
-from flask.views import MethodView
+from quart import Quart, Blueprint, jsonify, request
+from quart.views import MethodView
 
 from summarize_bot.predictor_factory import PredictorFactory
 from summarize_bot.predictor import Predictor
@@ -15,8 +15,8 @@ class SummarizeText(MethodView):
 
     @debug_request(Config.DEBUG)
     @api_key_required
-    def post(self):
-        data = request.get_json()
+    async def post(self):
+        data = await request.get_json()
         text = data.get("text", "")
         summary = self.processor.predict(text)
         return jsonify({"summary": summary})
@@ -24,7 +24,7 @@ class SummarizeText(MethodView):
 
 class HealthCheck(MethodView):
     @debug_request(Config.DEBUG)
-    def get(self):
+    async def get(self):
         return jsonify({"status": "ok"})
 
 
@@ -32,12 +32,13 @@ class ModelInfo(MethodView):
     def __init__(self, processor: Predictor):
         super().__init__()
         self.processor = processor
+
     @debug_request(Config.DEBUG)
-    def get(self):
-        return jsonify(self.processor.modelinfo)
+    async def get(self):
+        return jsonify(await self.processor.modelinfo)
 
 
-def init(app: Flask):
+def init(app: Quart):
     summarizer = PredictorFactory()
     app.url_map.strict_slashes = False
 
