@@ -4,6 +4,7 @@ from quart.views import MethodView
 from summarize_bot.predictor_factory import PredictorFactory
 from summarize_bot.predictor import Predictor
 from summarize_bot.decorators import api_key_required
+from summarize_bot.log import logger
 
 
 class SummarizeText(MethodView):
@@ -15,7 +16,9 @@ class SummarizeText(MethodView):
     async def post(self):
         data = await request.get_json()
         text = data.get("text", "")
+        logger.debug(f"Received text for summarization: {text}")
         summary = await self.processor.predict(text)
+        logger.debug(f"Generated summary: {summary}")
         return jsonify({"summary": summary})
 
 
