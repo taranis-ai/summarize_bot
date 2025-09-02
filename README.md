@@ -14,7 +14,7 @@ uv sync --all-extras --dev
 Run via
 
 ```bash
-flask run
+quart run
 # or
 granian app
 # or

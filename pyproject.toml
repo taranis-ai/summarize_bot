@@ -9,12 +9,14 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Security",
 ]
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "requests",
-    "Flask",
+    "Quart",
+    "aiohttp",
     "pydantic-settings",
     "python-dotenv",
     "granian",
@@ -27,7 +29,7 @@ dependencies = [
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff"]
+dev = ["pytest", "ruff", "pytest-asyncio"]
 
 [project.urls]
 "Source Code" = "https://github.com/taranis-ai/summarize-bot"
@@ -49,7 +51,7 @@ packages = ["summarize_bot"]
 
 [tool.ruff]
 line-length = 142
-target-version = "py312"
+target-version = "py313"
 
 [tool.pytest.ini_options]
 filterwarnings = [
@@ -57,3 +59,4 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning"
 ]
+asyncio_mode = "auto"

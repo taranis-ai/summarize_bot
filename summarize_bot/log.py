@@ -5,7 +5,7 @@ import sys
 import traceback
 from typing import Optional
 
-from flask import request
+from quart import request
 
 from summarize_bot.config import Config
 

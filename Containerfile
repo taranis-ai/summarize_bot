@@ -1,4 +1,4 @@
-FROM python:3.12-slim AS builder
+FROM python:3.13-slim AS builder
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 WORKDIR /app/
@@ -16,7 +16,7 @@ RUN uv venv && \
     export PATH="/app/.venv/bin:$PATH" && \
     uv sync --frozen
 
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 ARG MODEL="t5"
 
@@ -36,8 +36,9 @@ ENV PYTHONPATH=/app
 ENV GRANIAN_THREADS=2
 ENV GRANIAN_WORKERS=2
 ENV GRANIAN_BLOCKING_THREADS=4
-ENV GRANIAN_INTERFACE=wsgi
+ENV GRANIAN_INTERFACE=asgi
 ENV GRANIAN_HOST=0.0.0.0
+ENV GRANIAN_LOG_ACCESS_ENABLED=1
 ENV MODEL=${MODEL}
 
 # bake models in to the image

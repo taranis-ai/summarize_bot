@@ -9,7 +9,7 @@ class BartSummarize(Predictor):
     def __init__(self):
         self.summarizer = pipeline("summarization", model=self.model_name)
 
-    def predict(self, text: str) -> str:
+    async def predict(self, text: str) -> str:
         if not text:
             raise ValueError("No text to summarize.")
 

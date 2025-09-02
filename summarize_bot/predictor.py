@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import requests
+import aiohttp
 
 
 class Predictor(ABC):
@@ -9,12 +9,12 @@ class Predictor(ABC):
         pass
 
     @abstractmethod
-    def predict(self, text: str) -> str:
+    async def predict(self, text: str) -> str:
         pass
 
     @property
-    def modelinfo(self) -> dict[str, str]:
+    async def modelinfo(self) -> dict[str, str]:
         api_url = f"https://huggingface.co/api/models/{self.model_name}"
-        response = requests.get(api_url)
-        response.raise_for_status()
-        return response.json()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url=api_url, raise_for_status=True) as response:
+                return await response.json()

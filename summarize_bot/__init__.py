@@ -1,18 +1,17 @@
-from flask import Flask
+from quart import Quart
 from summarize_bot import router
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Quart(__name__)
     app.config.from_object("summarize_bot.config.Config")
 
-    with app.app_context():
-        init(app)
+    init(app)
 
     return app
 
 
-def init(app: Flask):
+def init(app: Quart):
     router.init(app)
 
 
