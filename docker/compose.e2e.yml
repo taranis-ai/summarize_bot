@@ -8,6 +8,6 @@ services:
       retries: 5
       start_period: 30s
     environment:
-      API_KEY: "${API_KEY}"
+      API_KEY: "${API_KEY:-testkey}"
       DEBUG: "${DEBUG:-False}"
 
