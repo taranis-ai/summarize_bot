@@ -10,4 +10,3 @@ services:
     environment:
       API_KEY: "${API_KEY:-testkey}"
       DEBUG: "${DEBUG:-False}"
-
