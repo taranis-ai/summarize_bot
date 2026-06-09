@@ -169,3 +169,11 @@ def content7():
 @pytest.fixture(params=["content1", "content2", "content3", "content4", "content5", "content6", "content7"])
 def article(request):
     return request.getfixturevalue(request.param)
+
+
+@pytest.fixture()
+def structured_input():
+    return [
+            {"title": "First title", "content": "First content"},
+            {"title": "Second title", "content": "Second content"},
+        ]
